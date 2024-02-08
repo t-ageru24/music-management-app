@@ -1,6 +1,6 @@
 import express from "express";
-import { Music } from "../models/musicModel";
-import (Music);
+import { Music } from "../models/musicModel.js";
+
 
 const router = express.Router();
 
@@ -8,15 +8,44 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if(
-            !request.body.title ||
-            !request.body.artist ||
-            !request.body.album ||
-            !request.body.genre ||
-            !request.body.publishYear
+            request.body == null
         ){
             return response.status(400).send({
                 message: 'Send all required fields: title, artist, album, genre, publishYear',
             })
+        }
+        else if ( !request.body.title){
+                return response.status(400).send({
+                    message: 'Send all required field: title',
+                })
+
+        }
+        else if ( 
+            !request.body.artist){
+                return response.status(400).send({
+                    message: 'Send all required field: artist',
+                })
+
+        }
+        else if ( 
+            !request.body.album 
+            ){
+                return response.status(400).send({
+                    message: 'Send all required field: album',
+                })
+
+        }
+        else if ( !request.body.genre ){
+                return response.status(400).send({
+                    message: 'Send all required field: genre',
+                })
+
+        }
+        else if ( !request.body.publishYear){
+                return response.status(400).send({
+                    message: 'Send all required field: publishYear',
+                })
+
         }
         const newMusic = {
             title: request.body.title,
